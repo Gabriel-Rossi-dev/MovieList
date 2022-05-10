@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.cursoandroid.teste.recycler_view.R;
 import com.cursoandroid.teste.recycler_view.activity.adapter.Adapter;
@@ -36,6 +39,41 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
         recyclerView.setAdapter(adapter);
+
+        recyclerView.addOnItemTouchListener(
+                new ClickListener(
+                        getApplicationContext(),
+                        recyclerView,
+                        new ClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                Movie movie = movieList.get(position);
+                                Toast.makeText(
+                                        getApplicationContext(),
+                                        "Click curto: " + movie.getTitle(),
+                                        Toast.LENGTH_SHORT
+                                ).show();
+
+                            }
+
+                            @Override
+                            public void onLongItemClick(View view, int position) {
+                                Movie movie = movieList.get(position);
+                                Toast.makeText(
+                                        getApplicationContext(),
+                                        "Click Longo: " + movie.getGender(),
+                                        Toast.LENGTH_SHORT
+                                ).show();
+
+                            }
+
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                            }
+                        }
+                )
+        );
 
     }
 
